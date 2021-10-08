@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-CUR_DIR="$(pwd)"
 
 if [[ -z "$HATCH_DIR" ]]; then
   export HATCH_DIR="${SCRIPT_ROOT}"
 fi
 
-### CLEAN UP
-unset CUR_DIR
+if [[ -f "$HATCH_CONFIG" ]]; then
+  source "${HATCH_CONFIG}"
+else
+ source "${SCRIPT_LIBS_DIR}/__config.sh"
+fi
