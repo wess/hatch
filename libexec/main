@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+export SCRIPT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+export SCRIPT_LIBS_DIR=${SCRIPT_ROOT}/libs
+export SCRIPT_CMD_DIR=${SCRIPT_ROOT}/commands
+export PROJECT=${PWD##*/}
+
+## LIBRARIES
+source ${SCRIPT_LIBS_DIR}/__echo.sh
+source ${SCRIPT_LIBS_DIR}/__helpers.sh
+
+## Main
+cmd=$1
+shift
+
+case $cmd in
+  "init")
+    source ${SCRIPT_CMD_DIR}/__init.sh
+    ;;
+  "check")
+    source ${SCRIPT_CMD_DIR}/__check.sh
+    ;;
+  *)
+    echo "Invalid command." | error
+    ;;
+esac
+
+
+## Clean up
+unset SCRIPT_ROOT
+unset SCRIPT_LIBS_DIR
+unset SCRIPT_CMD_DIR
+unset PROJECT
